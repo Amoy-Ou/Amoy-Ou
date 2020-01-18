@@ -43,10 +43,10 @@
     }
 	
     const CONFIG_LEACLOUD_COUNT = {
-      enable: false,
-	  appId: 'AU8...',
-	  appKey: '4cU...',
-	  serverURLs: 'http' || ' '
+      enable: true,
+	  appId: 'f3Hge9CcFggwB8BJWFsvJ08u-gzGzoHsz',
+	  appKey: 'SmQ6IXhiCjpmyrCzsWCHD0To',
+	  serverURLs: 'https://f3hge9cc.lc-cn-n1-shared.com' || ' '
     }
   </script>
 <meta name="generator" content="Hexo 4.2.0"></head>
@@ -432,7 +432,7 @@
 	<div class="copyright">
 		<p>
 			 
-				&copy;2017 - 2020, content by Sariay. All Rights Reserved.
+				&copy;2017 - 2020, content by Eurake. All Rights Reserved.
 			
 			
 				<a href="http://hexo.io/" title="Hexo" target="_blank" rel="noopener">Hexo</a> Theme <a href="https://github.com/Sariay/hexo-theme-Annie" title="Annie" target="_blank" rel="noopener">Annie</a> by Sariay.
@@ -477,6 +477,10 @@
 
 <!-- love effect -->
 
+	
+<script src="/plugin/love/love.js"></script>
+
+
 
 <!-- back to top -->
 
@@ -520,6 +524,11 @@
 -->
 
 
+  
+<script src="/plugin/leancloud/av-min.js"></script>
+<script src="/js/leancloud-count.js"></script>
+
+
 	
 
   
@@ -547,6 +556,21 @@
 		<div class="local-search-footer">
 			<div class="topN-post">				
 				
+
+   
+	<div id="topN">
+		<div class="topN-title" data-title= "热门文章"></div> 
+	</div>
+	
+    <script>
+        var limitCount = 10;
+        if( $('#topN').length ){
+            setTimeout(function() {
+                topNPost(limitCount);
+			}, 3000);
+        }
+    </script>
+   
 								
 			</div>
 		</div>
