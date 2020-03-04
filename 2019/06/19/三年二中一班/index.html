@@ -43,7 +43,7 @@
     }
 	
     const CONFIG_LEACLOUD_COUNT = {
-      enable: true,
+      enable: false,
 	  appId: 'f3Hge9CcFggwB8BJWFsvJ08u-gzGzoHsz',
 	  appKey: 'SmQ6IXhiCjpmyrCzsWCHD0To',
 	  serverURLs: 'https://f3hge9cc.lc-cn-n1-shared.com' || ' '
@@ -108,10 +108,6 @@
 	</p>
 
 	
-	
-		<span id="star-button" rel="unlike">
-			<i class="icon-heart"></i>
-		</span>
 	
 
 	<!-- Nav trigger for navigation-H-->
@@ -248,25 +244,7 @@
 			
 			
 
-	
-    <span class="leancloud_visitors" id="/2019/06/19/%E4%B8%89%E5%B9%B4%E4%BA%8C%E4%B8%AD%E4%B8%80%E7%8F%AD/_visitors" data-url="/2019/06/19/%E4%B8%89%E5%B9%B4%E4%BA%8C%E4%B8%AD%E4%B8%80%E7%8F%AD/" data-title="三年二中一班">
-       	<i class="icon-eye"></i>
-       	热度
-        
-            <i class="leancloud_visitors_count" id="leancloud_visitors_count">1</i>
-                   
-    </span>
-    
 
-
-
-	
-    <span class="leancloud_likes" id="/2019/06/19/%E4%B8%89%E5%B9%B4%E4%BA%8C%E4%B8%AD%E4%B8%80%E7%8F%AD/_likes" data-url="/2019/06/19/%E4%B8%89%E5%B9%B4%E4%BA%8C%E4%B8%AD%E4%B8%80%E7%8F%AD/" data-title="三年二中一班" rel="unlike">
-        <i class="icon-heart"></i>
-        喜欢
-        <i class="leancloud_likes_count" id="leancloud_likes_count">0</i>
-    </span>
-	
 
 		</div>
 
@@ -547,11 +525,30 @@
 
 		
 
-			<!-- I don't know !!!-->
-			<div class="config-info">
-				Please check the parameter of <b>comment</b> in config.yml of hexo-theme-Annie!
-			</div>
-			
+			<!-- valine comment -->
+			<!-- show valine comment -->
+<div id="valineComment" class="comment"></div>
+
+<!-- valine`s js & css -->
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/plugin/comment/valine.min.js"></script>
+<link rel="stylesheet" href="/css/comment.css">
+<script>
+	if( $('#valineComment').length ) {
+		new Valine({
+			// AV 对象来自上面引入av-min.js(老司机们不要开车➳♡゛扎心了老铁)
+			av: AV,
+			//使用id寻找div元素（使用class可能找不到?）
+			el: '#valineComment',
+			emoticon_url: 'https://cloud.panjunwen.com/alu',
+			emoticon_list: ["吐.png", "期待.png", "高兴.png", "吐血倒地.png", "哭泣.png", "欢呼.png"],
+			app_id: "OKWwnbvAmXmIWAhFKPCt81wS-gzGzoHsz", //获取APP ID
+			app_key: "S7LoYgUc0byd2d5XeMp5ArQU", //获取APP KEY
+			placeholder: "no any!", //评论框占位提示文字        			
+		});
+	}
+</script>		
+
 		
 		
 	
@@ -850,11 +847,6 @@
 -->
 
 
-  
-<script src="/plugin/leancloud/av-min.js"></script>
-<script src="/js/leancloud-count.js"></script>
-
-
 	
 
   
@@ -882,21 +874,6 @@
 		<div class="local-search-footer">
 			<div class="topN-post">				
 				
-
-   
-	<div id="topN">
-		<div class="topN-title" data-title= "热门文章"></div> 
-	</div>
-	
-    <script>
-        var limitCount = 10;
-        if( $('#topN').length ){
-            setTimeout(function() {
-                topNPost(limitCount);
-			}, 3000);
-        }
-    </script>
-   
 								
 			</div>
 		</div>
