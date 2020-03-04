@@ -1,27 +1,27 @@
 /**
  * Mostly created & edited by Sariay (https://github.com/Sariay/hexo-theme-Annie)..
  */
-function init(currentCounter, currentPost){
+function init(currentCounter, currentPost){  
 	let thisAcl    = new AV.ACL();
 	thisAcl.setPublicReadAccess(true);
 	thisAcl.setPublicWriteAccess(true);
-
+	
 	let newCounter = new currentCounter();
 	newCounter.setACL(thisAcl);
-
+	  
 	newCounter.set("url", currentPost.url);
 	newCounter.set("title", currentPost.title);
 	newCounter.set("visitors",currentPost.visitors);
 	newCounter.set("likes", currentPost.likes);
-
+	
 	newCounter.save().then(function(newCounter){
 		// 成功保存之后，执行其他逻辑.
 		console.log("Succed to create.");
-		console.log("New object created with objectId: " + newCounter.id + " / " + currentPost.title);
+		console.log("New object created with objectId: " + newCounter.id + " / " + currentPost.title);	
 	},function(error){
 		console.log("Failed to create!");
-		console.error("Failed to create new object, with error message: " + error.message + " / " + currentPost.title);
-	});
+		console.error("Failed to create new object, with error message: " + error.message + " / " + currentPost.title);		
+	});	  
 }
 
 function addVisitors(currentCounter, currentPost) {
@@ -65,7 +65,7 @@ function addLikes(currentCounter, currentPost) {
         function(results) {
             if(results.length > 0) {
                 let thisPost = results[0];
-                thisPost.increment("likes");
+                thisPost.increment("likes"); 
 				thisPost.fetchWhenSave(true);
                 thisPost.save().then(
                     function(thisPost) {
@@ -89,7 +89,7 @@ function addLikes(currentCounter, currentPost) {
             console.log('Error:' + error.code + " " + error.message);
         }
     );
-}
+}	
 
 function showVisitors(currentCounter, currentPost) {
     let query = new AV.Query(currentCounter);
@@ -197,14 +197,14 @@ function topNPost(limitCount) {
                         url = temporaryV.get('url'),
                         title = temporaryV.get('title'),
                         visitors = temporaryV.get('visitors');
-                    let topNumber = i + 1,
-                        topContent = "<ul class='topN-post-list'>" + "<li class='topN-post-item'>"  +"<span class='item-topNumber'>" + "TOP-" + topNumber + "</span>" + "<a class='item-title' target='_blank' href='" + url + "'>" + title + "</a>"+ "<i class='item-visitors'>" + "「文章热度:" + visitors + "℃」" + "</i>" + "</li>" + "</ul>";
+                    let topNumber = i + 1,     
+                        topContent = "<ul class='topN-post-list'>" + "<li class='topN-post-item'>"  +"<span class='item-topNumber'>" + "TOP-" + topNumber + "</span>" + "<a class='item-title' target='_blank' href='" + url + "'>" + title + "</a>"+ "<i class='item-visitors'>" + "「文章热度:" + visitors + "℃」" + "</i>" + "</li>" + "</ul>";     
                     $("#topN").append(topContent);
                 }
-
+                        
                 let	topTitleId = '.topN-title',
-                	topTitle = $(topTitleId).attr('data-title').trim();
-                $(topTitleId).text(topTitle + "(" + smallerValue + " posts)" );
+                	topTitle = $(topTitleId).attr('data-title').trim();           
+                $(topTitleId).text(topTitle + "(" + smallerValue + " posts)" );              
             }
             console.log('Succed to find topNPost.');
         },
@@ -288,19 +288,19 @@ function annieAddData(currentCounter, currentPost){
 
 		$('#navigation-hide').on("click", '#star-button', function() {
 			let likeContainer = $('.leancloud_likes'),
-				likeButton = $('#star-button');
-
+				likeButton = $('#star-button');            	
+			
 			const checkD = likeContainer.attr("rel");
-
+			
 			if((checkD === "unlike") && (star == "")) {
-
+	
 				addLikes(currentCounter, currentPost);
-				likeContainer.addClass("star-animation").attr("rel", "like");
+				likeContainer.addClass("star-animation").attr("rel", "like"); 
 				likeButton.addClass("star-animation").attr("rel", "like");
-
+								
 				postCookie.addCookieById("star", postId, 0.5);
-				//0.5天后自动销毁cookie, 允许再次点赞
-			} else {
+				//0.5天后自动销毁cookie, 允许再次点赞                                       
+			} else {               	              	              	
 				alert('您已经点赞过啦!');
 			}
 		});
@@ -311,14 +311,14 @@ function annieShowData(currentCounter, currentPost){
 	if($('.leancloud_visitors').length >= 1){
 		showVisitors(currentCounter, currentPost);
 	}
-
+	
 	if($('.leancloud_likes').length >= 1){
 		showLikes(currentCounter, currentPost);
 	}
 }
 
 /**
- * 调用函数add或者show数据
+ * 调用函数add或者show数据    	
  */
 // (function Annie_Counter(){
 const post = {
@@ -338,12 +338,12 @@ if(urlCheckStatus){
 		appId: CONFIG_LEACLOUD_COUNT.appId,
 		appKey: CONFIG_LEACLOUD_COUNT.appKey,
 		serverURLs: CONFIG_LEACLOUD_COUNT.serverURLs
-	});
-} else {
+	});			
+} else {		
 	AV.init({
 		appId: CONFIG_LEACLOUD_COUNT.appId,
 		appKey: CONFIG_LEACLOUD_COUNT.appKey
-	});
+	});	
 	console.log("The format of <" + CONFIG_LEACLOUD_COUNT.serverURLs + "> is not correct!");
 }
 
@@ -358,5 +358,5 @@ if( $('.layout-post').length ) {
 if( ($('.layout-pure').length || $('.layout-cart').length) && $('.post-title').length >= 1) {
 	//主页: 只展示次数
 	annieShowData(initCounter, initPost);
-}
+}	
 // })();
