@@ -230,7 +230,7 @@
 
 	<a href="/2020/03/08/ubuntu18-04%E9%80%9A%E8%BF%87%E5%A4%96%E9%83%A8SMTP%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" itemprop="url">
 		<time datetime="2020-03-08T12:12:42.000Z" itemprop="dateUpdated">
-	  		2020-03-08
+	  		2020-03-19
 	  </time>
 	</a> 
 
@@ -255,37 +255,37 @@
 		</div>
 
 		<div class="article-content" id="article-content">
-			<p>这周的计算机网络实验需要用到命令行发送邮件，在网上找了很多教程，大都用的是ubuntu自带的mail来实现，但是尝试了许久都没有成功（吐槽一下，没注明具体的运行系统和具体步骤的教程都是耍流氓，ubuntu14.04和16.04配置文件名都不一样怎么搞嘛，还有的教程不知是从哪复制来的不完整还有跳步的）。最终采用助教发的教程，从开始的想特立独行到能用就行，这是一个悲伤的故事…</p>
-<p>言归正传，本文所有操作经过ubuntu18.04系统运行验证过。</p>
-<h2 id="配置软件源"><a href="#配置软件源" class="headerlink" title="配置软件源"></a>配置软件源</h2><p>ubuntu18.04上无法直接安装heirloom-mailx，需要添加软件源：</p>
-<p>打开终端，执行</p>
+			<p>&emsp;&emsp;这周的计算机网络实验需要用到命令行发送邮件，在网上找了很多教程，大都用的是ubuntu自带的mail来实现，但是尝试了许久都没有成功（吐槽一下，没注明具体的运行系统和具体步骤的教程都是耍流氓，ubuntu14.04和16.04配置文件名都不一样怎么搞嘛，还有的教程不知是从哪复制来的不完整还有跳步的）。最终采用助教发的教程，从开始的想特立独行到能用就行，这是一个悲伤的故事…</p>
+<p>&emsp;&emsp;言归正传，本文所有操作经过ubuntu18.04系统运行验证过。</p>
+<h2 id="配置软件源"><a href="#配置软件源" class="headerlink" title="配置软件源"></a>配置软件源</h2><p>&emsp;&emsp;ubuntu18.04上无法直接安装heirloom-mailx，需要添加软件源：</p>
+<p>&emsp;&emsp;打开终端，执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/apt/sources.list</span><br></pre></td></tr></table></figure>
 
-<p>在打开的文件底部添加一行</p>
+<p>&emsp;&emsp;在打开的文件底部添加一行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">deb http://cz.archive.ubuntu.com/ubuntu xenial main universe</span><br></pre></td></tr></table></figure>
 
-<p>保存退出</p>
-<h2 id="安装heirloom-mailx"><a href="#安装heirloom-mailx" class="headerlink" title="安装heirloom-mailx"></a>安装heirloom-mailx</h2><p>先更新源，在终端执行</p>
+<p>&emsp;&emsp;保存退出</p>
+<h2 id="安装heirloom-mailx"><a href="#安装heirloom-mailx" class="headerlink" title="安装heirloom-mailx"></a>安装heirloom-mailx</h2><p>&emsp;&emsp;先更新源，在终端执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-<p>更新完之后就可以安装了，在终端执行</p>
+<p>&emsp;&emsp;更新完之后就可以安装了，在终端执行</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install heirloom-mailx</span><br></pre></td></tr></table></figure>
 
-<h2 id="配置外部SMTP"><a href="#配置外部SMTP" class="headerlink" title="配置外部SMTP"></a>配置外部SMTP</h2><p>打开配置文件</p>
+<h2 id="配置外部SMTP"><a href="#配置外部SMTP" class="headerlink" title="配置外部SMTP"></a>配置外部SMTP</h2><p>&emsp;&emsp;打开配置文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/s-nail.rc</span><br></pre></td></tr></table></figure>
 
-<p>在文件内写入</p>
+<p>&emsp;&emsp;在文件内写入</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> from=<span class="string">"xxx@qq.com"</span> <span class="comment">#填入你的邮箱地址</span></span><br><span class="line"><span class="built_in">set</span> smtp=<span class="string">"smtps://smtp.qq.com:465"</span> <span class="comment">#</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-user=<span class="string">"xxx@qq.com"</span>  <span class="comment">#与第一行邮箱相同</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth-password=<span class="string">"授权码"</span> <span class="comment">#是邮箱授权码，不是密码</span></span><br><span class="line"><span class="built_in">set</span> smtp-auth=login</span><br></pre></td></tr></table></figure>
 
-<p>Note：<a href="https://jingyan.baidu.com/article/fedf0737af2b4035ac8977ea.html" target="_blank" rel="noopener">qq邮箱授权码获取</a></p>
+<p>&emsp;&emsp;Note：<a href="https://jingyan.baidu.com/article/fedf0737af2b4035ac8977ea.html" target="_blank" rel="noopener">qq邮箱授权码获取</a></p>
 <h2 id="邮件发送"><a href="#邮件发送" class="headerlink" title="邮件发送"></a>邮件发送</h2><h3 id="格式一"><a href="#格式一" class="headerlink" title="格式一"></a>格式一</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo 邮件内容  | s-nail -s  邮件主题  receive@qq.com</span><br></pre></td></tr></table></figure>
 
-<p><a href="mailto:receive@qq.com">receive@qq.com</a>处为收信人邮箱地址</p>
+<p>&emsp;&emsp;<a href="mailto:receive@qq.com">receive@qq.com</a>处为收信人邮箱地址</p>
 <h3 id="格式二"><a href="#格式二" class="headerlink" title="格式二"></a>格式二</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s-nail -s  邮件主题  receive@qq.com&lt; result.txt</span><br></pre></td></tr></table></figure>
 
-<p>Note:发送的是result.txt里的内容，而不是将文件作为附件发送</p>
+<p>&emsp;&emsp;Note:发送的是result.txt里的内容，而不是将文件作为附件发送</p>
 <p><a href="https://www.colabug.com/2020/0303/7073313/" target="_blank" rel="noopener">本文参考教程链接</a></p>
-<h2 id="另附本次作业shell脚本"><a href="#另附本次作业shell脚本" class="headerlink" title="另附本次作业shell脚本"></a>另附本次作业shell脚本</h2><p>题目要求：用shell脚本监控内存，内存不足时发送警告邮件至自己的qq邮箱。</p>
+<h2 id="另附本次作业shell脚本"><a href="#另附本次作业shell脚本" class="headerlink" title="另附本次作业shell脚本"></a>另附本次作业shell脚本</h2><p>&emsp;&emsp;题目要求：用shell脚本监控内存，内存不足时发送警告邮件至自己的qq邮箱。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#date: 2020-03-08</span></span><br><span class="line"><span class="comment">#Author Eurake</span></span><br><span class="line">systemInit()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"===== 内存监视警报 ====="</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"系统启动... \c"</span></span><br><span class="line">	<span class="keyword">for</span> loop <span class="keyword">in</span> 1 2 3</span><br><span class="line">	<span class="keyword">do</span>	</span><br><span class="line">		sleep 1</span><br><span class="line">		<span class="built_in">echo</span> <span class="string">"...... \c"</span></span><br><span class="line">	<span class="keyword">done</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"\n Ready !"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">##发送警报邮件</span></span><br><span class="line">sendMail()</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">echo</span> <span class="variable">$1</span>  | s-nail -s  内存不足警报  XXX@qq.com <span class="comment">#填自己邮箱</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"Mail sent successfully!"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">##查询系统内存</span></span><br><span class="line">viewMemory()</span><br><span class="line">&#123;</span><br><span class="line">	memkb=`free | awk <span class="string">'NR==2&#123;print $7&#125;'</span>` <span class="comment">#获取当前可用内存（KB）</span></span><br><span class="line">	mem=`expr <span class="variable">$memkb</span> / 1024`  <span class="comment">#换算成MB</span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="variable">$mem</span> -lt 4096 ]</span><br><span class="line">    <span class="keyword">then</span></span><br><span class="line">       	 msg=<span class="string">"TIME:<span class="variable">$(date +%F_%T)</span>\n</span></span><br><span class="line"><span class="string">       	 HOSTNAME:<span class="variable">$(hostname)</span>\n</span></span><br><span class="line"><span class="string">       	 MSG:内存不足！还剩<span class="variable">$&#123;mem&#125;</span>MB"</span></span><br><span class="line">		 <span class="built_in">echo</span>  <span class="string">"\033[31m\n <span class="variable">$msg</span> \n\033[0m"</span></span><br><span class="line">	     sendMail <span class="variable">$msg</span> <span class="comment">#发送信息</span></span><br><span class="line">	<span class="keyword">fi</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">######</span></span><br><span class="line">systemInit</span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>  <span class="comment">#每隔半分钟检查一下</span></span><br><span class="line"> <span class="keyword">do</span></span><br><span class="line">	viewMemory</span><br><span class="line">	sleep 30</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
 <p>根据自己需要可以修改一下挂到服务器里面监测服务器的异常情况。</p>
@@ -365,7 +365,7 @@
 								十二月 31日, 2120				
 							</p>
 							<p class="relate-post-content">
-								关于我​    目前（2020.1.16）大三在读，以前或被逼或自愿都有写日记（周记？）的习惯，大学以来很少写了，总共没写几篇也不知被我弄哪去了。如果经历的岁月都没有一个记录，对于我来说，我会忘掉大部分的，那么，那些被忘掉的时光，对于...
+								关于我​    &emsp;&emsp;目前（2020.1.16）大三在读，以前或被逼或自愿都有写日记（周记？）的习惯，大学以来很少写了，总共没写几篇也不知被我弄哪去了。如果经历的岁月都没有一个记录，对于我来说，我会忘掉大部分的，那么...
 							</p>
 						</div>
 
@@ -410,7 +410,7 @@
 								三月 1日, 2020				
 							</p>
 							<p class="relate-post-content">
-								​        不知从什么时候起，已经很少看电视了，不过这个寒假属实太长，还只能在家苟着，有时就陪妈妈看会电视，因此注意到了央视八套的新版《绝代双骄》。小时候有看过张卫健版的《小鱼儿与花无缺》，虽然那时还小（大概5、6岁），但还是知...
+								​        &emsp;&emsp;不知从什么时候起，已经很少看电视了，不过这个寒假属实太长，还只能在家苟着，有时就陪妈妈看会电视，因此注意到了央视八套的新版《绝代双骄》。小时候有看过张卫健版的《小鱼儿与花无缺》，虽然那时还小（...
 							</p>
 						</div>
 
@@ -432,8 +432,8 @@
 								二月 22日, 2020				
 							</p>
 							<p class="relate-post-content">
-								​        由于这次疫情的影响，今年所有的学生都体验了可能很久就想体验的在家上学，我学校2.17开学，也上了一周的网课了，趁着周末谈谈这一周的感受。
-​        与我而言，网课最大的不同是环境，没有那种坐满一堂的课堂氛围。...
+								​        &emsp;&emsp;由于这次疫情的影响，今年所有的学生都体验了可能很久就想体验的在家上学，我学校2.17开学，也上了一周的网课了，趁着周末谈谈这一周的感受。
+​        &emsp;&emsp;与我而言，网...
 							</p>
 						</div>
 
@@ -455,8 +455,8 @@
 								一月 25日, 2020				
 							</p>
 							<p class="relate-post-content">
-								​    今天是农历新年，10年代和20年代的交界点，也将开启我人生的第三个十年，这就奔三了，想想都有点措手不及。小时候总盼着快快长大，成年后总是被生活推着往前赶。
-​    这个年也过的不是那么顺利，南方的冬季冷而且多雨，从学校回来...
+								​    &emsp;&emsp;今天是农历新年，10年代和20年代的交界点，也将开启我人生的第三个十年，这就奔三了，想想都有点措手不及。小时候总盼着快快长大，成年后总是被生活推着往前赶。
+​    &emsp;&emsp;这个年也过...
 							</p>
 						</div>
 
